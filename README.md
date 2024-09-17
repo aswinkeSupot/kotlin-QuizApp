@@ -70,6 +70,15 @@ dependencies {
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 ```
 
+## 9. Enable DataBinding (in app level build.gradle.kts)
+```
+android {
+     buildFeatures{
+        dataBinding = true
+    }
+}
+```
+
 ## - **SERVER SIDE**
 ## 1. Installing XAMP (Server)
 URL - https://www.apachefriends.org/
@@ -87,11 +96,23 @@ Now access Apache using the new port, e.g., http://localhost:8080/dashboard/
 or go to terminal -> ipconfig ->
                  Wireless LAN adapter Wi-Fi 3:
                  IPv4 Address. . . . . . . . . . . : 10.0.0.29 ->
+                 
                  http://10.0.0.29:8080/dashboard/
+
+In Macbook we can get the ip Address 
+ go to Terminal -> ipconfig getifaddr en0 -> we will get the ipaddress
+    192.168.75.16
+    
+    http://192.168.75.16:8080/dashboard
 ```
 
 ## 3. Create MYSQL Database
-Open  http://localhost:8080/dashboard/   OR  http://10.0.0.29:8080/dashboard/
+```
+Open  http://localhost:8080/dashboard/   OR  
+In windows http://10.0.0.29:8080/dashboard/
+In Mac OS  http://192.168.75.16:8080/dashboard/ 
+```
+
 ```
 phpMyAdmin ->
 New -> Create database
@@ -154,8 +175,58 @@ New -> Create database
 ## 2. Retrofit API Interface
    - Create package 'retrofit'
    - Create new interface 'QuestionsAPI'
-
    - Create a new kotlin/class 'RetrofitInstance'  in retrofit package
+
+## 3. Questions Repository
+   - Create package 'repository'
+   - Create new kotlin/class 'QuizRepository'
+
+## 4. View Model
+   - Create package 'viewmodel'
+   - Create new kotlin/class 'QuizViewModel'
+
+## 5. Creating MainActivity
+   - Create package 'view'
+   - move 'MainActivity' to the view package
+
+## 6. Network Security Rules 
+Error - (If we are getting the below error like not permitted by network security policy)
+```
+FATAL EXCEPTION: DefaultDispatcher-worker-1
+Process: com.example.quizapp, PID: 10962
+java.net.UnknownServiceException: CLEARTEXT communication to 192.168.75.16 not permitted by network security policy
+```
+We need to add Network Security Rules while connecting with local host.
+```
+if there is no 'xml' folder in 'res' directory 
+res -> Rt Clk -> New -> Android Resource Directory -> 
+        Directory name: xml
+        Select Resource type : xml  -> Ok
+
+else 
+xml(directory) -> new -> XML Resource File -> File Name: 'network_security' -> OK
+```
+**network_security.xml**
+```
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted = "true">
+        <trust-anchors>
+            <certificates src ="system"/>
+        </trust-anchors>
+    </base-config>
+</network-security-config>
+```
+
+Open AndroidManifest.xml and add the below inside application.
+```
+<application
+        android:networkSecurityConfig="@xml/network_security"
+        android:usesCleartextTraffic="true"
+</application>
+```
+
+## 7. Create ResultActivity
 
 
 
