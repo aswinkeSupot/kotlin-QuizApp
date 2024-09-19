@@ -79,7 +79,7 @@ android {
 }
 ```
 
-## - **SERVER SIDE**
+# **SERVER SIDE**
 ## 1. Installing XAMP (Server)
 URL - https://www.apachefriends.org/
 - install after downloading the XAMP
@@ -165,7 +165,7 @@ New -> Create database
 ?>
 ```
 
-## - **CREATE with MVVM**
+# **CREATE with MVVM**
 ## 1. Create Model Class
    - for creating model go to File -> Setting -> plugins -> JSON to Kotlin Class
    - Create package 'model'
